@@ -1,0 +1,113 @@
+﻿<UserControl x:Class="_04Laboratory_Matsevko.Views.MainView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:_04Laboratory_Matsevko.Views"
+             mc:Ignorable="d" 
+           
+             d:DesignHeight="600" d:DesignWidth="1100">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="285"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Margin="0,80,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition ></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBox Text="{Binding FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Grid.Column="1" FontSize="22" Width="150" Height="30" Margin="10,10"  HorizontalAlignment="Left"></TextBox>
+                <TextBlock Grid.Row="0" Grid.Column="0" FontSize="22"  Margin="5,5,5,2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Name" ></TextBlock>
+                <TextBox Text="{Binding LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Grid.Column="1" FontSize="22" Width="150" Height="30" Margin="10,10"  HorizontalAlignment="Left"></TextBox>
+                <TextBlock Grid.Row="1" Grid.Column="0" FontSize="22"  Margin="5,5,5,2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Surname" ></TextBlock>
+                <TextBox Text="{Binding Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Grid.Column="1" FontSize="22" Width="150" Height="30" Margin="10,10"  HorizontalAlignment="Left"></TextBox>
+                <TextBlock Grid.Row="2" Grid.Column="0" FontSize="22"  Margin="5,5,5,2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Email" ></TextBlock>
+                <TextBlock Grid.Row="3" Grid.Column="0"  FontSize="22" Margin="5,5,5,2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Date of birth"></TextBlock>
+                <DatePicker Margin="10,10,0,10" SelectedDate="{Binding ChosenDate, Mode=TwoWay}" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20" FirstDayOfWeek="Monday"></DatePicker>
+            </Grid>
+            <DataGrid IsReadOnly="{Binding Is_Checked}" Grid.Column="1" CanUserAddRows="False" ItemsSource="{Binding Users, Mode=OneWay}" SelectedItem="{Binding SelectedUser, Mode=TwoWay}" AutoGenerateColumns="False">
+                
+                <DataGrid.Columns>
+                    <DataGridTextColumn  Header="FirstName" Binding="{Binding FirstName}"></DataGridTextColumn>
+                    <DataGridTextColumn  Header="LastName" Binding="{Binding LastName}"></DataGridTextColumn>
+                    <DataGridTextColumn  Header="Email" Binding="{Binding Email}"></DataGridTextColumn>
+                    <DataGridTextColumn  Header="DateOfBirth" Binding="{Binding DateOfBirth}"></DataGridTextColumn>
+                    <DataGridTextColumn IsReadOnly="True"  Header="SunSign" Binding="{Binding SunSign}"></DataGridTextColumn>
+                    <DataGridTextColumn IsReadOnly="True"  Header="ChineseSign" Binding="{Binding ChineseSign}"></DataGridTextColumn>
+                    <DataGridTextColumn IsReadOnly="True" Header="IsAdult" Binding="{Binding IsAdult}"></DataGridTextColumn>
+                    <DataGridTextColumn IsReadOnly="True" Header="IsBirthday" Binding="{Binding IsBirthday}"></DataGridTextColumn>
+                    <DataGridTemplateColumn Header="Delete">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Delete"
+                            Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" CommandParameter="{Binding}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Edit">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Edit"
+                            Command="{Binding DataContext.EditCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" CommandParameter="{Binding}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+               
+            </DataGrid>
+        </Grid>
+        <Grid Grid.Row="1" Margin="10,0,10,40">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+               
+            </Grid.ColumnDefinitions>
+            <Button Command="{Binding InsertCommand}" Height="40" Width="180" Margin="65,10,20,180">Insert</Button>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Button Command="{Binding SortCommand}" Height="50" Width="220" Grid.Row="0" Margin="100,70,10,2">Sort</Button>
+                <TextBox Text="{Binding SortField, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="22" Width="220" Height="32" Margin="100,10,10,30" Grid.Row="1"></TextBox>
+            </Grid>
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Button Command="{Binding FilterCommand}" Height="50" Width="220" Grid.Row="0" Margin="150,70,10,2">Filter</Button>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TextBlock FontSize="20"  Margin="5,5,5,2" HorizontalAlignment="Right" VerticalAlignment="Center">Field</TextBlock>
+                    <TextBlock  FontSize="20"  Margin="5,5,5,2" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1">Value</TextBlock>
+                    <TextBox Text="{Binding FilterField, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="22" Width="150" Height="32" Margin="0,10,10,0" Grid.Row="0" Grid.Column="1"></TextBox>
+                    <TextBox Text="{Binding FilterValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="22" Width="150" Height="32" Margin="0,10,10,0" Grid.Row="1" Grid.Column="1"></TextBox>
+
+                </Grid>
+            </Grid>
+           
+            
+        </Grid>
+    </Grid>
+</UserControl>
